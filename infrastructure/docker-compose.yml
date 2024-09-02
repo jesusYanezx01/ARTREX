@@ -1,0 +1,14 @@
+services:
+  artrex-db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: artrex_user
+      POSTGRES_PASSWORD: securepassword
+      POSTGRES_DB: artrex_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
