@@ -9,7 +9,8 @@ def create_user():
     new_user = User(
         name=data['name'],
         email=data['email'],
-        password=data['password'] 
+        password=data['password'],
+        role=data['role']
     )
     db.session.add(new_user)
     db.session.commit()
@@ -22,7 +23,8 @@ def get_users():
         {
             'id': user.id,
             'name': user.name,
-            'email': user.email
+            'email': user.email,
+            'role': user.rol
         }
         for user in users
     ]
