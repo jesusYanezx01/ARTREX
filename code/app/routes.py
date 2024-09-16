@@ -1,8 +1,6 @@
 from flask import Blueprint, request, jsonify
-from werkzeug.security import check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from .models import db, User
-
 
 routes = Blueprint('routes', __name__)
 
@@ -29,7 +27,7 @@ def protected():
 def create_user():
     data = request.json
     new_user = User(
-        name=data['name'],
+        username=data['username'],
         email=data['email'],
         password=data['password'],
         role=data['role']
@@ -44,7 +42,7 @@ def get_users():
     users_data = [
         {
             'id': user.id,
-            'name': user.name,
+            'username': user.username,
             'email': user.email,
             'role': user.role
         }
