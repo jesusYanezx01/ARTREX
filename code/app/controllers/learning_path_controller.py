@@ -34,16 +34,31 @@ def create_learning_path():
 
 @learning_path_routes.route('/learning_paths', methods=['GET'])
 def get_learning_paths():
-    learning_paths = LearningPath.query.all()
+    category_id = request.args.get('category_id', type=int)
+    level_id = request.args.get('level_id', type=int)
+    title = request.args.get('title', type=str)
+
+    query = LearningPath.query
+
+    if category_id:
+        query = query.filter_by(category_id=category_id)
+    if level_id:
+        query = query.filter_by(level_id=level_id)
+    if title:
+        query = query.filter(LearningPath.title.ilike(f'%{title}%'))
+
+    learning_paths = query.all()
+
     learning_paths_data = [
         {
-            'id': path.id,
-            'title': path.title,
-            'description': path.description,
-            'category_id': path.category_id,
-            'level_id': path.level_id,
-            'created_at': path.created_at
+            'id': lp.id,
+            'title': lp.title,
+            'description': lp.description,
+            'category_id': lp.category_id,
+            'level_id': lp.level_id,
+            'created_at': lp.created_at.isoformat()
         }
-        for path in learning_paths
+        for lp in learning_paths
     ]
+
     return jsonify(learning_paths_data), 200
