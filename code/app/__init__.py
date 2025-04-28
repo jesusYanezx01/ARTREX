@@ -9,6 +9,7 @@ from .controllers.comment_controller import comment_routes
 from .controllers.score_controller import score_routes
 from .controllers.resource_controller import resource_routes
 from .controllers.label_controller import label_routes
+from .controllers.recommendation_controller import recommendation_routes
 from config import Config
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
@@ -32,5 +33,6 @@ def create_app():
     app.register_blueprint(score_routes)
     app.register_blueprint(resource_routes)
     app.register_blueprint(label_routes)
+    app.register_blueprint(recommendation_routes)
 
     return app
