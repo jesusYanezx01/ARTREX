@@ -8,7 +8,7 @@ Before you begin, make sure you have a basic understanding of Docker Compose.
 Run the following command to build and launch the containers in the background:
 
 ```bash
-docker compose -d --build
+docker compose up -d --build
 ```
 
 ### Step 2: Verify that the Containers are Running
@@ -32,12 +32,18 @@ docker exec -it <backend_container_name> bash
 Once inside the container, start the Flask shell:
 
 ```bash
-flask shell
+flask db upgrade
 ```
 
 ### Step 4: Populating the Database
 
-Finally, run the following script to populate the database with the data preset in `populate_data.py`:
+After running the migrations, populate the database using the following command:
+
+```bash
+flask shell
+```
+
+Inside the shell, run:
 
 ```python
 exec(open('scripts/populate_data.py').read())
